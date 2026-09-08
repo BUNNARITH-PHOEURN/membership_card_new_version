@@ -749,7 +749,7 @@
 
     window.addEventListener("DOMContentLoaded", loadMemberDataFromUrl);
 
-    // ---- Download / share button (unchanged) ----
+    // ---- Download / share button ----
     async function downloadCard() {
         const card = document.getElementById("member-card");
         const btn = document.querySelector(".download-btn");
@@ -761,11 +761,25 @@
         msg.textContent = "";
 
         try {
+            /* Force the card to its natural CSS size before capture */
+            const rect = card.getBoundingClientRect();
+            card.style.width = rect.width + "px";
+            card.style.height = rect.height + "px";
+
             const canvas = await html2canvas(card, {
                 scale: 3,
                 useCORS: true,
-                backgroundColor: "#ffffff"
+                allowTaint: true,
+                backgroundColor: null,
+                width: Math.round(rect.width),
+                height: Math.round(rect.height),
+                windowWidth: Math.round(rect.width),
+                windowHeight: Math.round(rect.height)
             });
+
+            /* Restore normal sizing */
+            card.style.width = "";
+            card.style.height = "";
 
             const blob = await new Promise(resolve => canvas.toBlob(resolve, "image/png"));
             const fileName = "member-card.png";
