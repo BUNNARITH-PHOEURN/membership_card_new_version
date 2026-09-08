@@ -359,7 +359,7 @@
             align-items: center;
             justify-content: space-between;
             width: 100%;
-            max-width: 280px;
+            max-width: 240px;
             padding: 6px 14px;
             background: rgba(255, 255, 255, 0.04);
             border-radius: 10px;
@@ -375,7 +375,7 @@
         }
 
         .date-item .date-value {
-            font-size: 13px;
+            font-size: 11px;
             font-weight: 700;
             letter-spacing: 0.5px;
             color: #ffffff;
@@ -561,32 +561,20 @@
         <!-- MEMBERSHIP CARD -->
         <div id="member-card" class="member-card">
             <div class="card-inner">
-                <!-- <div class="card-head">
-                    <svg class="fa7-solid--dumbbell" xmlns="http://www.w3.org/2000/svg" width="56"
-                        height="56" viewBox="-3 -3 646 646">
-                        <path d="M-3 -3h646v646H-3z" fill="none" />
-                        <path fill="#f3d489"
-                            d="M96 176c0-26.5 21.5-48 48-48s48 21.5 48 48v112h256V176c0-26.5 21.5-48 48-48s48 21.5 48 48v16h16c26.5 0 48 21.5 48 48v48c17.7 0 32 14.3 32 32s-14.3 32-32 32v48c0 26.5-21.5 48-48 48h-16v16c0 26.5-21.5 48-48 48s-48-21.5-48-48V352H192v112c0 26.5-21.5 48-48 48s-48-21.5-48-48v-16H80c-26.5 0-48-21.5-48-48v-48c-17.7 0-32-14.3-32-32s14.3-32 32-32v-48c0-26.5 21.5-48 48-48h16z" />
-                    </svg>
-                </div> -->
-
                 <div class="card-title">
-                    <span class="g">Member</span> <span class="w">Card</span>
+                    <span class="g">Member</span> <span class="g">Card</span>
                 </div>
-
                 <div class="photo-zone">
                     <span class="accent l"></span>
                     <span class="accent l2"></span>
                     <span class="accent r"></span>
                     <span class="accent r2"></span>
-
                     <img
                         id="member-photo"
                         class="photo"
                         src="https://defaulta6724a3fd9a34397962a5f9455147b.d8.environment.api.powerplatform.com/powerautomate/automations/direct/cu/29/workflows/5262c615e3d64838be0dfaa8b17171d2/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=S0vTcSJtv1m6jMc-7uSVL80Ya1K1ebZ6b1hDGo-55gY&siteurl=https://gymmembershipmanagement.sharepoint.com/sites/powerplatform&filepath=/Shared%20Documents/Member_Profile/SampleProfile.png"
                         alt="Member Photo" />
                 </div>
-
                 <h1 class="member-name" id="member-name">MEMBER</h1>
                 <div class="name-rule"></div>
 
@@ -668,6 +656,7 @@
          // ---- Default data (used when no ?data= param is present) ----
     const DEFAULT_DATA = {
         name: "Bun Narith",
+        uniqueId:1,
         memberId: "0000",
         startDate: "29 AUG 2024",
         endDate: "29 AUG 2025",
@@ -743,9 +732,9 @@
     const qrContainer = document.getElementById("member-qr");
     qrContainer.innerHTML = "";
     new QRCode(qrContainer, {
-        text: data.memberId,
-        width: 150,
-        height: 150,
+        text: data.uniqueId,
+        width: 180,
+        height: 180,
         correctLevel: QRCode.CorrectLevel.H
     });
 }
