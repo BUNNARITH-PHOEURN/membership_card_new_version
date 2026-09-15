@@ -615,8 +615,7 @@
                                 </svg>
                                 <span class="date-label">Start Date</span>
                             </div>
-                            <span class="date-value" id="start-date">29 AUG
-                                2024</span>
+                            <span class="date-value" id="start-date">29/Aug/2024</span>
                         </div>
 
                         <div class="date-item">
@@ -634,8 +633,7 @@
                                 </svg>
                                 <span class="date-label">Expiry Date</span>
                             </div>
-                            <span class="date-value" id="end-date">29 AUG
-                                2025</span>
+                            <span class="date-value" id="end-date">29/Aug/2025</span>
                         </div>
                     </div>
                 </div>
@@ -726,11 +724,27 @@
     }
 }
 
+   function formatDate(dateStr) {
+    const monthMap = {
+        JAN: "Jan", FEB: "Feb", MAR: "Mar", APR: "Apr",
+        MAY: "May", JUN: "Jun", JUL: "Jul", AUG: "Aug",
+        SEP: "Sep", OCT: "Oct", NOV: "Nov", DEC: "Dec"
+    };
+    const parts = dateStr.trim().split(/\s+/);
+    if (parts.length === 3) {
+        const day = parts[0];
+        const mon = monthMap[parts[1].toUpperCase()] || parts[1];
+        const year = parts[2];
+        return day + " " + mon + " " + year;
+    }
+    return dateStr;
+   }
+
    function populateCard(data) {
     document.getElementById("member-name").textContent = data.name;
     document.getElementById("member-id").textContent = data.memberId;
-    document.getElementById("start-date").textContent = data.startDate;
-    document.getElementById("end-date").textContent = data.endDate;
+    document.getElementById("start-date").textContent = formatDate(data.startDate);
+    document.getElementById("end-date").textContent = formatDate(data.endDate);
     
     const imageLinkBase = "https://defaulta6724a3fd9a34397962a5f9455147b.d8.environment.api.powerplatform.com/powerautomate/automations/direct/cu/29/workflows/5262c615e3d64838be0dfaa8b17171d2/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=S0vTcSJtv1m6jMc-7uSVL80Ya1K1ebZ6b1hDGo-55gY&siteurl=https://gymmembershipmanagement.sharepoint.com/sites/powerplatform&filepath=/Shared%20Documents/Member_Profile/";
     const photoPath = data.photo;
