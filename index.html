@@ -139,6 +139,7 @@
 
         .card-title .g {
             color: var(--gold-solid);
+            /* text-shadow: 2px 2px 3px rgb(240, 202, 49); */
         }
 
         .card-title .w {
@@ -161,13 +162,13 @@
             top: 50%;
             width: 210px;
             height: 210px;
-            transform: translate(-50%, -50%);
-            border-radius: 50%;
-            background: radial-gradient(
+            /* transform: translate(-50%, -50%); */
+            /* border-radius: 50%; */
+            /* background: radial-gradient(
             circle,
             rgba(230, 191, 120, 0.2),
             transparent 65%
-            );
+            ); */
             z-index: 0;
             pointer-events: none;
         }
@@ -564,7 +565,7 @@
                 <div class="card-title">
                     <span class="g">Member</span> <span class="g">Card</span>
                 </div>
-                <div class="photo-zone">
+                <div class="photo-zone" style="padding-top: 10px;">
                     <span class="accent l"></span>
                     <span class="accent l2"></span>
                     <span class="accent r"></span>
@@ -574,13 +575,14 @@
                         style="position: relative;
             z-index: 0;
             display: block;
-            width: 128px;
-            height: 128px;
-            border-radius: 50%;
-            border: 3px solid var(--gold-solid);
+            width: 130px;
+            height: 130px;
+            box-shadow: none;
+            border-radius: 5%;
+            border: 2px solid var(--gold-solid);
             background: #1a1a1e;"
                         class="photo"
-                        src="https://defaulta6724a3fd9a34397962a5f9455147b.d8.environment.api.powerplatform.com/powerautomate/automations/direct/cu/29/workflows/5262c615e3d64838be0dfaa8b17171d2/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=S0vTcSJtv1m6jMc-7uSVL80Ya1K1ebZ6b1hDGo-55gY&siteurl=https://gymmembershipmanagement.sharepoint.com/sites/powerplatform&filepath=/Shared%20Documents/Member_Profile/SampleProfile.png"
+                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH7v8yYArH8fudFNu6rJ7rXci4x-QDk2znR3qV9lPBUNNpgscdR6Jlyks&s=10"
                         alt="Member Photo" />
                 </div>
                 <h1 class="member-name" id="member-name">MEMBER</h1>
@@ -666,7 +668,7 @@
         memberId: "0000",
         startDate: "9/29/2024",
         endDate: "9/29/2025",
-        photo: "SampleProfile.png",
+        photo: "SampleProfile.jpg",
     };
     
     // ---- Read JSON from the ?data= query param and populate the card ----
