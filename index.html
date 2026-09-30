@@ -126,16 +126,20 @@
             background: linear-gradient(90deg, transparent, var(--gold-b), transparent);
         }
 
+        /* PHOTO: uses background-image so html2canvas keeps the same crop as the browser.
+           Change "center" to "center top" if you want to show more of the face. */
         .photo {
             position: relative;
             z-index: 0;
-            display: block;
+            flex-shrink: 0;
             width: 125px;
             height: 125px;
             border-radius: 5%;
-            object-fit: cover;
             border: 2px solid var(--gold-solid);
-            background: #1a1a1e;
+            background-color: #1a1a1e;
+            background-repeat: no-repeat;
+            background-size: cover;
+            background-position: center;
         }
 
         .member-name {
@@ -250,7 +254,7 @@
             border: 1px solid var(--gold-solid);
         }
 
-        /* ---------- TOAST (like ABA "saved" bar) ---------- */
+        /* ---------- TOAST ---------- */
         .toast {
             position: fixed;
             left: 16px;
@@ -384,12 +388,8 @@
                     <span class="accent l2"></span>
                     <span class="accent r"></span>
                     <span class="accent r2"></span>
-                    <img
-                        id="member-photo"
-                        class="photo"
-                        crossorigin="anonymous"
-                        src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRH7v8yYArH8fudFNu6rJ7rXci4x-QDk2znR3qV9lPBUNNpgscdR6Jlyks&s=10"
-                        alt="Member Photo" />
+                    <!-- Photo is now a DIV with background-image (fixes stretched photo when saving) -->
+                    <div id="member-photo" class="photo" role="img" aria-label="Member Photo"></div>
                 </div>
                 <h1 class="member-name" id="member-name">MEMBER</h1>
                 <div class="name-rule"></div>
@@ -439,9 +439,9 @@
         <script>
         // ---- Texts (change here if you want another language) ----
         const TEXT = {
-            saved: "Card saved",
-            view: "View",
-            failed: "Something went wrong. Please try again"
+            saved: "កាតត្រូវបានរក្សាទុក",
+            view: "ចុចមើល",
+            failed: "មានបញ្ហា សូមព្យាយាមម្តងទៀត"
         };
 
         const CHECK_SVG =
@@ -484,7 +484,10 @@
 
             const imageLinkBase = "https://defaulta6724a3fd9a34397962a5f9455147b.d8.environment.api.powerplatform.com/powerautomate/automations/direct/cu/29/workflows/5262c615e3d64838be0dfaa8b17171d2/triggers/manual/paths/invoke?api-version=1&sp=%2Ftriggers%2Fmanual%2Frun&sv=1.0&sig=S0vTcSJtv1m6jMc-7uSVL80Ya1K1ebZ6b1hDGo-55gY&siteurl=https://gymmembershipmanagement.sharepoint.com/sites/powerplatform&filepath=/Shared%20Documents/Member_Profile/";
 
-            document.getElementById("member-photo").src = imageLinkBase + data.photo;
+            // Set the photo as a background image (keeps the same crop in the saved image)
+            const photoUrl = imageLinkBase + data.photo;
+            document.getElementById("member-photo").style.backgroundImage =
+                'url("' + photoUrl + '")';
 
             const qrContainer = document.getElementById("member-qr");
             qrContainer.innerHTML = "";
@@ -586,19 +589,17 @@
                 const file = new File([cardBlob], fileName, { type: "image/png" });
 
                 if (isIOS) {
-                    // iPhone: share sheet -> "Save Image" puts it in Photos
                     if (navigator.canShare && navigator.canShare({ files: [file] })) {
                         try {
                             await navigator.share({ files: [file] });
                             showToast(TEXT.saved, { withView: true });
                         } catch (e) {
-                            if (e.name !== "AbortError") showPreview(true); // share blocked
+                            if (e.name !== "AbortError") showPreview(true);
                         }
                     } else {
                         showPreview(true);
                     }
                 } else {
-                    // Android / desktop: direct download (shows in Gallery / Downloads)
                     saveByDownload(cardBlob, fileName);
                     showToast(TEXT.saved, { withView: true });
                 }
